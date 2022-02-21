@@ -9,16 +9,7 @@
     </div>
     </div>
 </template>
-<script>
-export default {
-  name: 'User',
-  props: ['user'],
-  methods: {
-    details (name) {
-      this.$router.push(`/profile/${name}`)
-    }
-  }
-}
+<script src='./js/User.js'>
 </script>
 <style scoped>
 .userdetail{

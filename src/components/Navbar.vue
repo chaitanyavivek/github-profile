@@ -2,58 +2,28 @@
 <div>
     <div class="header">
         <div class="header_left">
-            <p><b>GitHub</b></p>
+            <img src="@/assets/github logo.jpeg" @click="self" class="logo" style="height: 50px; ">
         </div>
         <div class="header_middle">
-             <div class="header_input">
-       <span class="material-icons-outlined">search</span>
-             <input type="text" v-model="search" placeholder="Search or jump to..." @input="userDetails" >
+             <div class="header_input" v-if="isHome">
+                   <input type="text" v-model="search" placeholder="Search or jump to..." @input="userDetails" >
+             <span class="material-icons-outlined">search</span>
              </div>
          </div>
          <div class="header_right">
-             <div class="header_option">
-    <router-link :to="{ path: '/'}"><span class="material-icons-outlined"> home</span></router-link>
-                    <h5><b>Home</b></h5>
+             <div class="header_option"  :class="{'active': isHome }">
+    <router-link :to="{ path: '/'}" ><span class="material-icons-outlined"> home</span></router-link>
+                   <h5><b>Home</b></h5>
              </div>
-            <div class="header_option">
-     <span class="material-icons-outlined">person</span>
-     <router-link :to="{ path: '/profile/chaitanyavivek'}" v-if="isHome"></router-link>
+             <div class="header_option" :class="{ 'active': isProfile}"   v-if="!isHome">
+  <router-link :to="{ path: `/profile/${name}`}" ><span class="material-icons-outlined">person</span></router-link>
           <h5><b>Profile</b></h5>
              </div>
       </div>
      </div>
 </div>
 </template>
-<script>
-import axios from 'axios'
-export default {
-  name: 'Navbar',
-  data () {
-    return {
-      users: [],
-      search: ''
-    }
-  },
-  methods: {
-    async userDetails (event) {
-      this.serach = event.target.value
-      console.log(this.serach)
-      await axios.get(`https://api.github.com/search/users?q=${this.search}`).then((response) => {
-        this.users = response.data.items
-        console.log(this.users)
-        this.$store.state.users = this.users
-      })
-    }
-  },
-  move () {
-    this.$router.push('/')
-  },
-  computed: {
-    isHome () {
-      return this.$route.name === 'Users'
-    }
-  }
-}
+<script src = './js/Navbar.js'>
 </script>
 <style scoped>
      .header{
@@ -86,10 +56,11 @@ export default {
          height: 50px;
          width: 250px;
          margin-top: 5px;
+         /* border: red; */
 
      }
      .header_input input {
-         border: none ;
+         border: green ;
          background-color: rgb(236, 228, 228);
           /* outline-width: 0; */
      }
@@ -103,6 +74,8 @@ export default {
      }
      .header_option .material-icons-outlined {
          font-size: xx-large;
+         color: #000;
+        text-decoration: none;
      }
      .header_option{
          display: flex;
@@ -110,15 +83,34 @@ export default {
          padding: 0 30px;
          cursor: pointer;
      }
+     .header_input .text{
+       padding: 6px;
+      font-size: 17px;
+       margin-left:300px;
+       width: 400px;
+     }
      .header_option:hover {
-         background-color: rgb(236, 228, 228);
+         background-color:white;
          border-radius: 10px;
          align-items: center;
          padding: 0 30px;
          border-bottom: none;
      }
+     .header_middle
+     {
+       background: none;
+     }
      h5{
          color: black;
          padding-top: 10px;
      }
+     .material-icons-outlined{
+       cursor:pointer;
+     }
+     .active{
+  background-color:white;
+   }
+   .logo {
+    margin-top: -10px;
+}
 </style>

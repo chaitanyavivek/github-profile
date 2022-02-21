@@ -1,10 +1,10 @@
 import axios from 'axios'
-export const getUsers = ({ commit }) => {
-  axios.get('https://api.github.com/users')
-    .then(response => {
-      commit('SET_USERS', response.data)
-    })
-}
+// export const getUsers = ({ commit }) => {
+//   axios.get('https://api.github.com/users')
+//     .then(response => {
+//       commit('SET_USERS', response.data)
+//     })
+// }
 export const getFollowers = ({ commit }, name) => {
   axios.get(`https://api.github.com/users/${name}/followers`)
     .then(response => {

@@ -14,8 +14,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-/* .nav{
-  width: 100%;
-} */
-</style>

@@ -29,26 +29,34 @@
                 <div class="follow">
                     <div class="followers">
                         <p><i>{{profile.followers}}</i></p>
-                    <router-link :to="{ path: `/${profile.login}/followers`}" v-if="profile.followers!=0"><button>FOLLOWERS</button></router-link></div>
+                    <router-link :to="{ path: `/${profile.login}/followers`}"><button class="button" :disabled="profile.followers === 0">FOLLOWERS</button></router-link></div>
                     <div class="following">
-                        <p>{{profile.following}}</p>
-                    <router-link :to="{ path: `/${profile.login}/following`}" v-if="profile.following!=0"><button>FOLLOWING</button></router-link></div>
+                        <p><i>{{profile.following}}</i></p>
+                    <router-link :to="{ path: `/${profile.login}/following`}"><button class="button" :disabled="profile.following === 0">FOLLOWING</button></router-link></div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import {mapGetters, mapActions} from 'Vuex'
 export default{
-  components: {
-  },
   mounted () {
-    this.$store.dispatch('getProfile', this.$route.params.name)
+    // this.$store.dispatch('getProfile', this.$route.params.name)
+    this.getProfile(this.$route.params.name)
   },
   computed: {
-    profile () {
-      return this.$store.state.profile
+    ...mapGetters({profile: 'profile'}),
+    // profile () {
+    followingNumber (no) {
+      if (no === 0) { return true } else { return false }
+    },
+    followersNumber (no) {
+      if (no === 0) { return true } else { return false }
     }
+  },
+  methods: {
+    ...mapActions({getProfile: 'getProfile'})
   }
 }
 </script>
@@ -76,7 +84,6 @@ export default{
   margin-right: 60px;
   margin-left: -30px;
   font-size: 150%;
-
 }
 .profile .details .text .tails{
   font-size: 150%;
@@ -97,5 +104,4 @@ export default{
     padding-top: 5px;
     background-color: grey;
 }
-
 </style>

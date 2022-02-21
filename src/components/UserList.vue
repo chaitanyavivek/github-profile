@@ -1,39 +1,19 @@
 <template>
-    <div >
+<div class="totalusers" v-if="this.UserList.length>0">
         <User v-for='user in UserList' :key="user.id" :user="user"/>
      </div>
-     <!-- <div class="text"><h1><b>---WELCOME TO GITHUB---</b></h1></div> -->
+     <div v-else style="display:flex; flex-direction:column; justify-content:center;">
+     <h1>---WELCOME TO GITHUB---</h1>
+     <img src="@/assets/github.jpeg" style="height: 600px; ">
+</div>
 </template>
-<script>
-import User from '@/components/User'
-export default{
-  components: {
-    User
-  },
-  data () {
-    return {
-      users1: []
-
-    }
-  },
-
-  // mounted () {
-  //   this.$store.dispatch('getUsers')
-  // },
-  computed: {
-    UserList () {
-      console.log('I am in ')
-      return this.$store.state.users
-    }
-  }
-
-}
+<script src='./js/UserList.js'>
 </script>
 <style scoped>
-.text h1{
+h1{
   text-align: center;
   /* background-color: grey; */
-  margin-top:250px;
+  margin-top:80px;
   margin-left: -100px;
 
 }
